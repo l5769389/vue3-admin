@@ -1,12 +1,16 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form"  :model="loginForm">
+    <el-form
+        ref="loginRef"
+        :rules="loginRule"
+        class="login-form"
+             :model="loginForm">
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
-      <el-form-item prop="username" >
-          <span class="svg-container" style="color: red">
-              <svg-icon icon="https://res.lgdsunday.club/user.svg"/>
+      <el-form-item prop="username">
+          <span class="svg-container" >
+              <svg-icon icon="https://res.lgdsunday.club/user.svg" />
           </span>
         <el-input
           placeholder="username"
@@ -18,7 +22,7 @@
 
       <el-form-item prop="password">
           <span class="svg-container">
-              <svg-icon icon="password"/>
+              <svg-icon icon="password" />
           </span>
         <el-input
           placeholder="password"
@@ -27,32 +31,89 @@
           :type="passwordType"
         />
         <span class="show-pwd" @click="onPasswordTypeChange">
-            <svg-icon icon="eye"/>
+            <svg-icon :icon="passwordType ==='password' ? 'eye':'eye-open'" />
         </span>
       </el-form-item>
 
       <el-button type="primary" style="width: 100%; margin-bottom: 30px"
-      >登录</el-button
+                 @click="handleLogin"
+      >登录
+      </el-button
       >
     </el-form>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
+import { useStore } from 'vuex'
+import { ElMessage } from 'element-plus'
+import router from '@/router'
+/**
+ * 引入 store
+ * @type {Store<any>}
+ */
+const store = useStore()
 
 const loginForm = ref({
   username: '',
   password: ''
 })
 const passwordType = ref('password')
-
+const loginRule = reactive({
+  username: [
+    {
+      required: true,
+      message: '必填',
+      trigger: 'blur'
+    }
+  ],
+  password: [
+    {
+      required: true,
+      message: '必填',
+      trigger: 'blur'
+    }
+  ]
+})
 const onPasswordTypeChange = () => {
   if (passwordType.value === 'password') {
     passwordType.value = ''
   } else {
     passwordType.value = 'password'
   }
+}
+
+/**
+ * 绑定表单
+ * @type {null}
+ */
+const loginRef = ref(null)
+const handleLogin = async () => {
+  try {
+    await validateForm(loginRef)
+    const res = await store.dispatch('user/login', loginForm.value)
+    if (res.data.code === 200) {
+      ElMessage({
+        message: 'Success',
+        type: 'success'
+      })
+      await router.push('/')
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
+const validateForm = (formRef) => {
+  return new Promise((resolve, reject) => {
+    formRef.value.validate((valid, fields) => {
+      if (valid) {
+        resolve()
+      } else {
+        reject(new Error('error'))
+      }
+    })
+  })
 }
 
 </script>
