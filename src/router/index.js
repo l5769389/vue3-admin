@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import LoginView from '@/views/login'
-import HomeView from '@/views/index'
+import Layout from '@/layout/index'
+import Home from '@/views/index'
 import store from '@/store'
 const whiteList = []
 const routes = [
@@ -10,7 +11,11 @@ const routes = [
   },
   {
     path: '/',
-    component: HomeView
+    component: Layout,
+    children: [{
+      path: '/',
+      component: Home
+    }]
   }
 ]
 
