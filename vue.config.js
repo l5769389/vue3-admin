@@ -28,4 +28,13 @@ module.exports = {
       })
       .end()
   }
+  // css: {
+  //   loaderOptions: {
+  //     css: {
+  //       modules: {
+  //         auto: () => true
+  //       }
+  //     }
+  //   }
+  // }
 }

@@ -93,7 +93,7 @@ const handleLogin = async () => {
   try {
     await validateForm(loginRef)
     const res = await store.dispatch('user/login', loginForm.value)
-    if (res.data.code === 200) {
+    if (res.data.code === 1) {
       ElMessage({
         message: 'Success',
         type: 'success'

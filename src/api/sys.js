@@ -7,6 +7,7 @@ export const login = (data) => {
     data
   })
 }
+
 export const isLogin = () => {
   return request({
     url: '/sys/isLogin',

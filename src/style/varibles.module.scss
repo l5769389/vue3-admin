@@ -1,9 +1,9 @@
 $menuText:#bfcbd9;
-$sideBarWidth:210px;
-$hideBarWidth:50px;
+$sideBarWidth:200px;
+$hideBarWidth:63px;
 
 $menuBg:#304156;
-$menuHover:#263445;
+$menuHover:yellow;
 
 $subMenuBg:#1f2d3d;
 $subMenuHover:#001528;
@@ -12,4 +12,6 @@ $subMenuHover:#001528;
   menuText:$menuText;
   sideBarWidth:$sideBarWidth;
   hideBarWidth:$hideBarWidth;
+  menuBg:$menuBg;
+  menuHover:$menuHover;
 }

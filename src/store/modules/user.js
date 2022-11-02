@@ -2,8 +2,14 @@ import { isLogin, login } from '@/api/sys'
 
 export default {
   namespaced: true,
-  state: () => ({}),
-  mutations: {},
+  state: () => ({
+    userInfo: null
+  }),
+  mutations: {
+    setUserInfo: (state, payload) => {
+      state.userInfo = payload
+    }
+  },
   actions: {
     login (context, userInfo) {
       const { username, password } = userInfo
@@ -24,9 +30,11 @@ export default {
       return new Promise((resolve, reject) => {
         isLogin()
           .then(res => {
-            if (res.data.code === 500) {
+            if (res.data.code === -1) {
               reject(new Error())
             } else {
+              const { userInfo } = res.data.data
+              this.commit('user/setUserInfo', userInfo)
               resolve()
             }
           })
