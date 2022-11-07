@@ -5,8 +5,8 @@
     </el-icon>
     <bread-crumb/>
     <div class="right">
-      <el-icon><Search /></el-icon>
-      <el-icon><FullScreen /></el-icon>
+       <search-com/>
+      <el-icon @click="handleScreenfull"><FullScreen /></el-icon>
       <el-dropdown>
     <span class="el-dropdown-link">
        <el-avatar shape="square" :size="size" :src="squareUrl" />
@@ -28,6 +28,8 @@ import { DArrowLeft } from '@element-plus/icons'
 import { useStore, mapState } from 'vuex'
 import { computed } from 'vue'
 import BreadCrumb from './components/BreadCrumb'
+import screenfull from 'screenfull'
+import SearchCom from '@/layout/components/components/SearchCom'
 const store = useStore()
 const toggleSidebar = () => {
   store.commit('app/toggleSideBar')
@@ -38,6 +40,9 @@ const squareUrl = computed(() => {
 const size = 40
 const isSideOpened = computed(() => store.getters.sideBarOpened)
 
+const handleScreenfull = () => {
+  screenfull.request()
+}
 </script>
 <style lang="scss" scoped>
   .nav-bar-container{
