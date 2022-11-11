@@ -18,47 +18,48 @@ const routes = [
     meta: {
       title: '首页'
     },
-    children: [{
-      path: '/',
-      component: Home
-    },
-    {
-      path: '/profile',
-      component: Profile,
-      meta: {
-        title: '个人中心'
+    children: [
+      {
+        path: '/',
+        component: Home
+      },
+      {
+        path: '/profile',
+        component: Profile,
+        meta: {
+          title: '个人中心'
+        }
+      },
+      {
+        path: '/user',
+        meta: {
+          title: '用户'
+        },
+        children: [
+          {
+            path: '/user/manage',
+            component: UserManage,
+            meta: {
+              title: '用户管理'
+            }
+          }
+        ]
+      },
+      {
+        path: '/article',
+        meta: {
+          title: '文章'
+        },
+        children: [
+          {
+            path: '/article/rank',
+            component: Rank,
+            meta: {
+              title: '文章排名'
+            }
+          }
+        ]
       }
-    },
-    {
-      path: '/user',
-      meta: {
-        title: '用户'
-      },
-      children: [
-        {
-          path: '/user/manage',
-          component: UserManage,
-          meta: {
-            title: '用户管理'
-          }
-        }
-      ]
-    },
-    {
-      path: '/article',
-      meta: {
-        title: '文章'
-      },
-      children: [
-        {
-          path: '/article/rank',
-          component: Rank,
-          meta: {
-            title: '文章排名'
-          }
-        }
-      ]
-    }
     ]
   }
 ]
